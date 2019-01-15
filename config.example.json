@@ -8,5 +8,9 @@
     "discord": {
         "active": false,
         "webhook_url": ""
+    },
+    "maker": {
+        "active": false,
+        "webhook_url": ""
     }
 }
