@@ -38,6 +38,7 @@ More information on configuration will be added soon.
 - [ ] Presets
 - [x] Price Change Updates
 - [x] YeezySupply
+- [x] Maker Webhooks
 
 ### Some more screenshots to flex
 
