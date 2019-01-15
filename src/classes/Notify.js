@@ -1,5 +1,6 @@
 const DiscordWebhook = require("discord-webhooks");
 const SlackWebhook = require('slack-webhook')
+const MakerWebhook = require('node-ifttt-maker')
 
 let Notify = {};
 
@@ -133,6 +134,45 @@ Notify.slack = function (webhook_url, url, brand, metadata, type, color) {
 	})
 }
 
+Notify.maker = function (webhook_url, url, brand, metadata, type, color) {
+
+	const event = 'shopify';
+	let webhook = new MakerWebhook(webhook_url);
+
+	if (isNaN(metadata.stock)) {
+		let stock = 'Unavailable'
+	} else {
+		let stock = metadata.stock
+	}
+
+	let price = metadata.price
+
+	let links;
+	if (Array.isArray(metadata.links)) {
+		const set = [];
+		for (let i = 0; i < metadata.links.length; i++) {
+			const letiant = metadata.links[i];
+			let baseUrl = letiant.baseUrl;
+			set.push(`[${letiant.title}](${baseUrl}/cart/${letiant.id}:1)`);
+		}
+		links = set.join('\n');
+	} else {
+		links = 'Unavailable'
+	}
+		
+	const params = {
+		'value1': metadata.title,
+		'value2': price,
+		'value3': links
+	}
+	
+	webhook
+		.request({ event, params })
+		.then((response) => {})
+		.catch((err) => {});
+
+}
+
 Notify.discordTest = function (webhook_url) {
 	let myWebhook = new DiscordWebhook(webhook_url);
 	myWebhook.on("ready", () => {
@@ -145,6 +185,16 @@ Notify.discordTest = function (webhook_url) {
 Notify.slackTest = function (webhook_url) {
 	let webhook = new SlackWebhook(webhook_url);
 	webhook.send('Shopify Monitor Test');
+}
+
+Notify.makerTest = function (webhook_url) {
+	const event = 'shopify';
+	let webhook = new MakerWebhook(webhook_url)
+
+	webhook
+		.request({ event, params })
+		.then((response) => {})
+		.catch((err) => {});;
 }
 
 Notify.ys = function (webhook_url, data) {

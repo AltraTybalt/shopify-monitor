@@ -144,6 +144,10 @@ class Task {
 														if (global.config.slack.active) {
 															Notify.slack(global.config.slack.webhook_url, products[i].loc[0], this.url, res, 'Newly Added Item', 1609224);
 														}
+														
+														if (global.config.maker.active) {
+															Notify.maker(global.config.maker.webhook_url, products[i].loc[0], this.url, res, 'Newly Added Item', 1609224);
+														}
 
 													});
 
@@ -176,6 +180,10 @@ class Task {
 
 																	if (global.config.slack.active) {
 																		Notify.slack(global.config.slack.webhook_url, products[i].loc[0], this.url, res, 'Newly Added Item', 1609224);
+																	}
+																	
+																	if (global.config.maker.active) {
+																		Notify.maker(global.config.maker.webhook_url, products[i].loc[0], this.url, res, 'Newly Added Item', 1609224);
 																	}
 																}
 															});
@@ -212,6 +220,10 @@ class Task {
 																	if (global.config.slack.active) {
 																		Notify.slack(global.config.slack.webhook_url, products[i].loc[0], this.url, res, 'Restock/Price Change', 2061822);
 																	}
+																	
+																	if (global.config.maker.active) {
+																		Notify.maker(global.config.maker.webhook_url, products[i].loc[0], this.url, res, 'Restock/Price Change', 2061822);
+																	}
 																}
 
 															});
@@ -238,7 +250,11 @@ class Task {
 																	}
 
 																	if (global.config.slack.active) {
-																		Notify.slack(global.config.discord.webhook_url, products[i].loc[0], this.url, res, 'Restock/Price Change', 2061822);
+																		Notify.slack(global.config.slack.webhook_url, products[i].loc[0], this.url, res, 'Restock/Price Change', 2061822);
+																	}
+																	
+																	if (global.config.maker.active) {
+																		Notify.maker(global.config.maker.webhook_url, products[i].loc[0], this.url, res, 'Restock/Price Change', 2061822);
 																	}
 																}
 
@@ -266,11 +282,9 @@ class Task {
 				/* YeezySupply tings */
 
 				/*
-
 					upcoming - Single Product Page
 					pw - password page
 					live - product live
-
 				*/
 
 				if (this.firstRun) {
